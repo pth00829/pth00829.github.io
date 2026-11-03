@@ -14,9 +14,6 @@
 
         fetch("https://sandbox.exprmt.dev/board/write.php", {
             method: 'POST',
-            headers:{
-                "PHPSESSID":"0c204af58e40737fdb5a2df5847f7340"
-            },
             body: formData
         }).then(response => {
             console.log("전송 완료:", response);
